@@ -1,0 +1,121 @@
+const express = require('express');
+const Tr103 = require('../../models/UserInfo').Tr103;
+const SignUpdata = require('../../models/UserInfo').SignUp;
+const router = express.Router();
+const fetchuser = require('../../middleware/fetchUser');
+const isAdmin = require('../../middleware/isAdmin');
+
+// Route to create a new user profile
+router.post('/', fetchuser, async (req, res) => {
+    try {
+        const { organization, technology, projectName, type, certificate, organizationType } = req.body.formData;
+        const crn = req.body.crn
+
+        const userInfo = await SignUpdata.findOne({ crn: crn });
+
+        if (!userInfo) {
+            return res.status(404).json({ message: 'UserInfo not found' });
+        }
+
+        // Create a new user profile object
+        const TR103 = new Tr103({
+            organization,
+            technology,
+            projectName,
+            type,
+            certificate,
+            organizationType
+        });
+
+        userInfo.tr103 = TR103;
+
+        const savedUserInfo = await userInfo.save();
+
+        // Respond with the saved userInfo
+        res.status(201).json({ success: true, data: savedUserInfo });;
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+router.post('/updatelock', fetchuser, isAdmin, async (req, res) => {
+    try {
+        const { crn, lock } = req.body;
+        const trainingField = "tr103.lock";
+        userData = await SignUpdata.findOneAndUpdate(
+            { crn: crn },
+            { [trainingField]: lock },
+            { new: true }
+        );
+
+        if (!userData) {
+            return res.status(404).json({ message: 'User data not found' });
+        }
+  
+
+        // Respond with the updated user data
+        res.status(200).json({ success: true });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+router.get('/:crn', fetchuser, async (req, res) => {
+    try {
+        const crn = req.params.crn;
+        const userInfo = await SignUpdata.findOne({ crn: crn }).populate('tr103');
+
+        if (!userInfo) {
+            return res.status(404).json({ message: 'UserInfo not found' });
+        }
+
+        // Respond with the user information
+        res.status(200).json({ success: true, data: userInfo.tr103 });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+router.post('/verifyall', fetchuser, isAdmin, async (req, res) => {
+    try {
+        // Get all users with the role "user"
+        const usersToUpdate = await SignUpdata.find({ role: 'user' });
+
+        if (!usersToUpdate) {
+            return res.status(404).json({ message: 'No users found' });
+        }
+
+        // Update the lock status for all users
+        const updatedUsers = await Promise.all(usersToUpdate.map(async (user) => {
+            user.tr103.lock = true; // Set lock status to true (or whatever your logic is)
+            return await user.save();
+        }));
+
+        // Respond with the updated user data
+        res.status(200).json({ success: true});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+router.post('/unverifyall', fetchuser, isAdmin, async (req, res) => {
+    try {
+        // Get all users with the role "user"
+        const usersToUpdate = await SignUpdata.find({ role: 'user' });
+
+        if (!usersToUpdate) {
+            return res.status(404).json({ message: 'No users found' });
+        }
+
+        // Update the lock status for all users
+        const updatedUsers = await Promise.all(usersToUpdate.map(async (user) => {
+            user.tr103.lock = false; // Set lock status to true (or whatever your logic is)
+            return await user.save();
+        }));
+
+        // Respond with the updated user data
+        res.status(200).json({ success: true});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+module.exports = router;
