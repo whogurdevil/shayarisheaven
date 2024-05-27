@@ -18,7 +18,7 @@ const Footer = () => {
   return (
     <footer
       style={{
-        backgroundColor: "#900000",
+        backgroundColor: "#62fcaf",
         color: "white",
         textAlign: "center",
         padding: "20px",
@@ -29,7 +29,9 @@ const Footer = () => {
         zIndex: "100",
       }}
     >
-      <Typography variant="body1">{"Made with 🤍 "}</Typography>
+      <Typography variant="body1" color={"black"}>
+        {"Made with 🤍 "}
+      </Typography>
     </footer>
   );
 };

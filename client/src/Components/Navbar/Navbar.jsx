@@ -41,15 +41,18 @@ function Navbar() {
   return (
     <div>
       <Box sx={{ flexGrow: 1 }} margin={0}>
-        <AppBar position="relative">
-          <Toolbar sx={{ boxShadow: "none" }}>
+        <AppBar
+          position="relative"
+          sx={{ backgroundColor: "transparent", boxShadow: "none" }}
+        >
+          <Toolbar>
             <Container
               sx={{
                 width: "100vw",
                 alignItems: "center",
               }}
             >
-              <Typography variant="h6" component="div">
+              <Typography variant="h6" component="div" color={"primary"}>
                 {"Shayar's Heaven"}
               </Typography>
             </Container>

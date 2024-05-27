@@ -102,7 +102,7 @@ function Login() {
           }
         }
       } else {
-        toast.error( json.message);
+        toast.error(json.message);
         setLoading(false);
       }
     } catch (error) {
@@ -149,14 +149,12 @@ function Login() {
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
-            InputLabelProps={{ shrink: true }}
             margin="normal"
             required
             fullWidth
             id="crn"
-            label="Username/CRN"
+            label="Username"
             name="crn"
-            placeholder="1234567"
             value={credentials.crn}
             onChange={handleChange}
             autoFocus
@@ -164,7 +162,6 @@ function Login() {
             helperText={errors.crn}
           />
           <TextField
-            InputLabelProps={{ shrink: true }}
             margin="normal"
             required
             fullWidth
@@ -202,38 +199,6 @@ function Login() {
           >
             {loading ? <CircularProgress size={24} /> : "Sign In"}
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link
-                href="/forgotpassword"
-                variant="body2"
-                sx={{
-                  color: "#1b29c2",
-                  textDecoration: "none",
-                  "&:hover": {
-                    color: "#1bb1c2",
-                  },
-                }}
-              >
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link
-                href="/signup"
-                variant="body2"
-                sx={{
-                  color: "#1b29c2",
-                  textDecoration: "none",
-                  "&:hover": {
-                    color: "#1bb1c2",
-                  },
-                }}
-              >
-                Do not have an account? Sign Up
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>
