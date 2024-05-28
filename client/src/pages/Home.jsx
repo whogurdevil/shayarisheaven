@@ -174,23 +174,27 @@ const Home = () => {
             </FormControl>
           </Grid>
         </Grid>
-        <InfiniteScroll
-          dataLength={sheyars.length}
-          next={() => setPage((prevPage) => prevPage + 1)}
-          hasMore={hasMore}
-          loader={<CircularProgress />}
-          endMessage={<Typography variant="body2">No more sheyars</Typography>}
-        >
-          {sheyars.length > 0 ? (
-            sheyars.map((sheyar, index) => (
-              <div key={index}>
-                <MyCard sheyar={sheyar.text} />
-              </div>
-            ))
-          ) : (
-            <Typography variant="body2">No sheyars available</Typography>
-          )}
-        </InfiniteScroll>
+        <div style={{ overflowY: "scroll", height: "500px" }}>
+          <InfiniteScroll
+            dataLength={sheyars.length}
+            next={() => setPage((prevPage) => prevPage + 1)}
+            hasMore={hasMore}
+            loader={<CircularProgress />}
+            endMessage={
+              <Typography variant="body2">No more sheyars</Typography>
+            }
+          >
+            {sheyars.length > 0 ? (
+              sheyars.map((sheyar, index) => (
+                <div key={index}>
+                  <MyCard sheyar={sheyar.text} />
+                </div>
+              ))
+            ) : (
+              <Typography variant="body2">No sheyars available</Typography>
+            )}
+          </InfiniteScroll>
+        </div>
         <ToastContainer />
       </Container>
     </Box>
