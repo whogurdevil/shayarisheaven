@@ -19,10 +19,7 @@ import { ToastContainer, toast } from "react-toastify";
 import MyCard from "../Components/Cards/MyCard";
 import topleft from "../assets/topleft.png";
 import topright from "../assets/topright.png";
-const API_URL =
-  import.meta.env === "production"
-    ? import.meta.env.VITE_PROD_BASE_URL
-    : import.meta.env.VITE_DEV_BASE_URL;
+const API_URL = "https://shayarisheaven.onrender.com/api/";
 
 const categories = ["Love", "Sad", "Funny", "Friendship", "Atitude", "Other"];
 const languages = ["Punjabi", "Hindi", "Urdu", "English"];
