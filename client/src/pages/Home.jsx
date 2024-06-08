@@ -130,7 +130,7 @@ const Home = () => {
           textAlign={"center"}
           alignContent={"center"}
         >
-          {"Sheyars's Heaven"}
+          {"Sheyars' Heaven"}
         </Typography>
         <Grid container spacing={2} justifyContent="space-evenly" marginY={2}>
           <Grid item>
