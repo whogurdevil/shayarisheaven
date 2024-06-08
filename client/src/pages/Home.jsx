@@ -73,7 +73,8 @@ const Home = () => {
       sx={{
         boxShadow: "inset 0 0 0 0.7rem #F9F4DA",
         height: "100vh",
-        position: "relative",
+        position: "fixed",
+        width: "100vw",
       }}
     >
       <Box
@@ -171,7 +172,18 @@ const Home = () => {
             </FormControl>
           </Grid>
         </Grid>
-        <div style={{ overflowY: "scroll", height: "500px" }}>
+        <div
+          style={{
+            overflowY: "scroll",
+            height: "500px",
+            "::WebkitScrollbar": {
+              display: "none",
+            },
+            // Hide scrollbar for IE, Edge and Firefox
+            msOverflowStyle: "none", // IE and Edge
+            scrollbarWidth: "none",
+          }}
+        >
           <InfiniteScroll
             dataLength={sheyars.length}
             next={() => setPage((prevPage) => prevPage + 1)}

@@ -82,7 +82,7 @@ const Main = () => {
   });
 
   // Choose theme based on user preference
-  const theme = prefersDarkMode ? darkTheme : lightTheme;
+  const theme = darkTheme;
 
   return (
     <ThemeProvider theme={theme}>
